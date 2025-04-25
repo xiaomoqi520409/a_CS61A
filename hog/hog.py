@@ -257,7 +257,11 @@ def is_always_roll(strategy, goal=GOAL):
     """
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
-    
+    if strategy()==strategy():
+        return True
+    else:
+        return False
+
     # END PROBLEM 7
 
 
