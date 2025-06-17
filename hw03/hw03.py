@@ -145,13 +145,15 @@ def count_coins(total):
     def helper(total,smallest_coin):
         if total==0:
             return 1
-        if total<0:
+        elif total<0:
             return 0
-        if smallest_coin==None:
+        elif smallest_coin==None:
             return 0
-        without_coin=helper(total,next_larger_coin(smallest_coin))
-        with_coin=helper(total-smallest_coin,smallest_coin)
-        return without_coin+with_coin
+        else:
+            without_coin=helper(total,next_larger_coin(smallest_coin))
+            with_coin=helper(total-smallest_coin,smallest_coin)
+            return with_coin+without_coin
+
     return helper(total,1)
 
 def print_move(origin, destination):
@@ -187,7 +189,13 @@ def move_stack(n, start, end):
     """
     assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end"
     "*** YOUR CODE HERE ***"
-
+    if n==1:
+        print_move(start,end)
+    else:
+        other=6-start-end
+        move_stack(n-1,start,other)
+        print_move(start,end)
+        move_stack(n-1,other,end)
 
 from operator import sub, mul
 
@@ -202,5 +210,7 @@ def make_anonymous_factorial():
     ...     ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr', 'FunctionDef', 'Recursion'])
     True
     """
+
+    return (lambda f:lambda k:f(f,k)) (lambda f,k:k if k==1 else mul(k,f(f,sub(k,1))))
     return 'YOUR_EXPRESSION_HERE'
 
